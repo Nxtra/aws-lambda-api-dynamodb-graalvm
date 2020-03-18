@@ -5,12 +5,12 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
-    id 'io.spring.dependency-management'version '1.0.9.RELEASE'
-    id 'java-library'
+    id 'java'
+    id 'maven'
     id 'maven-publish'
     id 'distribution'
-
+    id 'io.quarkus' version "${quarkusVersion}"
+    id 'io.franzbecker.gradle-lombok' version '3.3.0'
 }
 
 group 'com.nickvanhoof'
@@ -23,38 +23,26 @@ repositories {
     mavenCentral()
 }
 
-
-
 dependencies {
 
     // aws
-    implementation 'com.amazonaws:aws-java-sdk-lambda:1.11.714'
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.0'
     implementation 'com.amazonaws:aws-lambda-java-events:2.2.7'
-//    implementation 'com.amazonaws:aws-java-sdk-sns:1.11.718'
-//    implementation 'com.amazonaws:aws-java-sdk-sqs:1.11.718'
     implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.11.718'
-    implementation 'software.amazon.awssdk:dynamodb:2.10.60'
 
     // logging
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     testCompileOnly 'org.projectlombok:lombok:1.18.10'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
-    implementation 'org.slf4j:slf4j-api:1.7.30'
-    implementation 'org.slf4j:log4j-over-slf4j:1.7.30'
-//            implementation 'org.slf4j:slf4j-simple:1.7.30'
-    implementation 'io.symphonia:lambda-logging:1.0.3'
 
-    // Apache
-    implementation 'org.apache.commons:commons-lang3:3.9'
-    implementation 'org.apache.httpcomponents:httpcore:4.4.13'
+    implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+    implementation 'io.quarkus:quarkus-amazon-lambda'
+    implementation 'io.quarkus:quarkus-arc'
+    implementation ("io.quarkus:quarkus-amazon-lambda-deployment:${quarkusVersion}")
+
 
     implementation 'com.google.code.gson:gson:2.8.6'
-
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.2'
 
     // testing
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.0'
@@ -68,13 +56,26 @@ dependencies {
 
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
+distributions {
+    main {
+        contents {
+            into('/') {
+                from './build'
+                include '*.jar'
+                fileMode 0755
+            }
         }
     }
 }
 
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+}
 
-tasks.build.dependsOn tasks.shadowJar
+build.dependsOn buildZip
+
 

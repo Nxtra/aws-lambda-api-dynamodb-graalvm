@@ -46,7 +46,8 @@ functions:
     reservedConcurrency: 10
     timeout: 10
     package:
-      artifact: build/libs/dynamodb-api-lambda-graalvm-1.0-SNAPSHOT-all.jar
+      artifact: build/distributions/dynamodb-api-lambda-graalvm-1.0-SNAPSHOT.zip
+#      artifact: build/libs/dynamodb-api-lambda-graalvm-1.0-SNAPSHOT-all.jar
       individually: true
     events:
       - http:

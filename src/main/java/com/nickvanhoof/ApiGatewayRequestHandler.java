@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nickvanhoof.dao.MessageDao;
 import com.nickvanhoof.service.MessageService;
-import org.apache.http.HttpStatus;
 
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class ApiGatewayRequestHandler implements RequestHandler<APIGatewayProxyR
         MessageDao messageDao = messageService.handleGetMessageRequest(input.getPathParameters().get("uuid"));
 
         return new APIGatewayProxyResponseEvent()
-                .withStatusCode(HttpStatus.SC_CREATED)
+                .withStatusCode(201)
                 .withHeaders(Map.of("X-Powered-By", "AWS-Lambda", "X-Created-By", "https://twitter.com/TheNickVanHoof"))
                 .withBody(messageToJson(messageDao));
     }
