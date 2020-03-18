@@ -1,0 +1,30 @@
+{
+  "name": "dynamodb-api-lambda-graalvm",
+  "version": "1.0.0",
+  "description": "Testing GraalVM and AWS Lambda",
+  "scripts": {
+    "test": "gradlew clean test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nxtra/apigateway-dynamodb-lambda-basic-example.git"
+  },
+  "keywords": [
+    "GraalVM",
+    "AWS",
+    "Lambda"
+  ],
+  "author": "Nick Van Hoof",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nxtra/apigateway-dynamodb-lambda-basic-example/issues"
+  },
+  "homepage": "https://github.com/Nxtra/apigateway-dynamodb-lambda-basic-example#readme",
+  "dependencies": {
+    "serverless": "^1.66.0"
+  },
+  "devDependencies": {
+    "serverless-prune-plugin": "^1.4.2",
+    "serverless-pseudo-parameters": "^2.5.0"
+  }
+}
