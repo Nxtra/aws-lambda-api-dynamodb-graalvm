@@ -1,7 +1,6 @@
 buildscript {
     ext {
         awsSdkSoftwareVersion = '2.10.55'
-        awsXraySdkVersion = '2.4.0'
     }
 }
 
@@ -10,6 +9,7 @@ plugins {
     id 'io.spring.dependency-management'version '1.0.9.RELEASE'
     id 'java-library'
     id 'maven-publish'
+    id 'distribution'
 
 }
 
@@ -23,23 +23,9 @@ repositories {
     mavenCentral()
 }
 
-//dependencyManagement {
-//    imports {
-//        mavenBom 'software.amazon.awssdk:bom:' + awsSdkSoftwareVersion
-//        mavenBom 'com.amazonaws:aws-xray-recorder-sdk-bom:' + awsXraySdkVersion
-//    }
-//}
 
 
 dependencies {
-//
-//    // xray
-//    implementation 'com.amazonaws:aws-xray-recorder-sdk-core'
-//    implementation 'com.amazonaws:aws-xray-recorder-sdk-aws-sdk'
-//    implementation 'com.amazonaws:aws-xray-recorder-sdk-aws-sdk-instrumentor'
-//    implementation 'com.amazonaws:aws-xray-recorder-sdk-apache-http'
-//    implementation 'com.amazonaws:aws-xray-recorder-sdk-sql-postgres'
-//    implementation 'com.amazonaws:aws-xray-recorder-sdk-sql-mysql'
 
     // aws
     implementation 'com.amazonaws:aws-java-sdk-lambda:1.11.714'
