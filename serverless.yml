@@ -12,7 +12,7 @@ custom:
 
 provider:
   name: aws
-  runtime: java11
+  runtime: java8
   stage: dev
   region: eu-west-1
   profile: nxtradev
@@ -42,7 +42,7 @@ provider:
 
 functions:
   messageFunction:
-    handler: com.nickvanhoof.ApiGatewayRequestHandler
+    handler: io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
     reservedConcurrency: 10
     timeout: 10
     package:

@@ -10,7 +10,6 @@ plugins {
     id 'maven-publish'
     id 'distribution'
     id 'io.quarkus' version "${quarkusVersion}"
-    id 'io.franzbecker.gradle-lombok' version '3.3.0'
 }
 
 group 'com.nickvanhoof'
@@ -62,7 +61,6 @@ distributions {
             into('/') {
                 from './build'
                 include '*.jar'
-                fileMode 0755
             }
         }
     }
@@ -77,5 +75,3 @@ task buildZip(type: Zip) {
 }
 
 build.dependsOn buildZip
-
-

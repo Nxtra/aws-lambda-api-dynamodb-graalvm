@@ -5,21 +5,23 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nickvanhoof.dao.MessageDao;
 import com.nickvanhoof.service.MessageService;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Map;
 
+@Named("requestHandler")
 public class ApiGatewayRequestHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    Gson gson;
-    MessageService messageService;
+    @Inject
+    private Gson gson;
+    @Inject
+    private MessageService messageService;
 
-    public ApiGatewayRequestHandler() {
-        this.gson = new GsonBuilder().create();
-        this.messageService = new MessageService();
-    }
+    public ApiGatewayRequestHandler() {}
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {

@@ -7,23 +7,22 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.nickvanhoof.dao.MessageDao;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
+@ApplicationScoped
 public class DynamoDBRepository {
 
     private static final String REGION = "eu-west-1";
 
-
     private DynamoDBMapper dynamoDBMapper;
 
-    public DynamoDBRepository(){
-        AmazonDynamoDB amazonDynamoDBClient = AmazonDynamoDBClientBuilder
-                .standard()
-                .withRegion(REGION)
-                .build();
-        dynamoDBMapper = new DynamoDBMapper(amazonDynamoDBClient);
+    @Inject
+    public DynamoDBRepository(DynamoDBMapper dynamoDBMapper){
+        this.dynamoDBMapper = dynamoDBMapper;
     }
 
     public Optional<MessageDao> getOneMessageById(String id){
