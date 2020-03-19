@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Map;
 
-@Named("requestHandler")
+@Named("myHandler")
 public class ApiGatewayRequestHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @Inject
