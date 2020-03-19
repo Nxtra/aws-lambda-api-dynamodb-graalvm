@@ -1,4 +1,4 @@
-# dynamodb startup issue
+# AWS LAMBDA with ApiGateway, DynamoDB working with Quarkus
 
 ## build and deploy
 * build: `./build.sh`
