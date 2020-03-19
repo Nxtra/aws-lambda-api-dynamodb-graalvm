@@ -15,7 +15,6 @@ provider:
   runtime: java8
   stage: dev
   region: eu-west-1
-  profile: nxtradev
   package:
     individually: true
   tracing:
